@@ -1,6 +1,6 @@
-% Basic Image Manipulation - Convert Images to Halftone
-% Tim Feirg, SYSU, 11311030
-% March, 11, 2014
+# Basic Image Manipulation - Convert Images to Halftone
+### Tim Feirg, SYSU, 11311030
+### March, 11, 2014
 
 This is a report for my homework assignment in digital image processing course, also the first attempt to write something using OpenCV in C++ for myself - a program that converts any image to 2 color halftone, each pixel of the source image will be represented as different 3x3 dot patterns according to its intensity:
 
@@ -53,7 +53,6 @@ I called `Mat::at` and `Mat::copyTo` methods in a loop to do the job, notice tha
 
 With the help of all the methods under Mat object, basic operations like image addition, multiplication and so on, can mostly be done in a line. Study the `arith()` function within my code for detail.
 
-\newpage
 
 ## The result
 
@@ -61,39 +60,37 @@ With the help of all the methods under Mat object, basic operations like image a
 
     ./exp_1 --halftone [image directory]
 
-I have my source image shown in figure \ref{skull}:
+I have my source image like so:
 
-![Skull\label{skull}](skull.png)
+![Skull](skull.png)
 
 This image is used as example throughout the project.
 
-Apparently the output image will be 9 itmes as large as the source image (see figure \ref{halftone}. I didn't scale it down in my report so it'd be easier to observe. 
+Apparently the output image will be 9 itmes as large as the source image (see figure . I didn't scale it down in my report so it'd be easier to observe. 
 
-![Halftone image\label{halftone}](halftoning_result.png)
+![Halftone image](halftoning_result.png)
 
 You can save the image and zoom to see the actual dot pattern.
 
-\newpage
 
 ### Reduce image gray level
 
     ./exp_1 --reduce [image directory]
 
-You'll then have to specify gray level before runing the program, say, 3, the target image will contain only 3 gray level, so after reduced to 3 colors the result is shown in figure \ref{reduce}.
+You'll then have to specify gray level before runing the program, say, 3, the target image will contain only 3 gray level, so after reduced to 3 colors the result turned out to be like this:
 
-![Reduce gray level: 3 colors\label{reduce}](reduceGrayLevel.png)
+![Reduce gray level: 3 colors](reduceGrayLevel.png)
 
 ### Arithmetic operations
 
     ./exp_1 --arithmetic [image 1] [image 2]
 
-You'll then have to specify what kind of operation you want on these two images, one of them is the x-ray skull image that I used in halftoning, another is a rose image in figure \ref{rose} which is 1024x1024.
+You'll then have to specify what kind of operation you want on these two images, one of them is the x-ray skull image that I used in halftoning, another is a rose image in figure  which is 1024x1024.
 
-![image 2 used in arithmetic operations\label{rose}](rose.png)
+![image 2 used in arithmetic operations](rose.png)
 
 The arithmetic part has been coded to perform as generic as possible, so the smaller image is going to be resized to fit the larger one. In my example the skull image is resized to 1024x1024.
 
-\newpage
 
 Image addition is done through `cv::add()` function, result is converted to `CV_16UC1`.
 
@@ -101,30 +98,28 @@ Image addition is done through `cv::add()` function, result is converted to `CV_
 
 The result image sees a brighter area in rose shape, which is quite reasonable.
 
-\newpage
 Multiplication is also done through a one-liner using `cv::multiply()`, the result is stored in `CV_16UC1` format in order to eliminate the effect of overflow.
 
 ![Multiplication](multiplication.png)
 
 There're lots of 0 value pixel in the rose image, so the output was very dark generally, nothing wrong with the result.
 
-\newpage
 The code by default divide the first image specified by the second, using `cv::divide()`. See the official documents for detail.
 
 ![Division](division.png)
 
 Division cause image to become darker.
 
-\newpage
 To maintain consistency the result of subtraction is also in 16 bit, even though subtraction between 2 images doesn't produce pixel intensity larger than 255. The OpenCV function is `cv::subtact()`.
 
 ![Subtraction](subtraction.png)
 
 If you'd like to do some more, build the executable file and try out for yourself.
 
-\newpage
 
 ### C++ program
+
+If you were to read the source code please check out `main.cpp` in the repository, I post the code beneath because it's a homework report for my laboratory project.
 
 The actual C++ code is quite big, mostly declaring a huge array.
 
@@ -326,5 +321,3 @@ Mat arith(Mat img1, Mat img2) {
     return img1;
 }
 ~~~
-
-\newpage
